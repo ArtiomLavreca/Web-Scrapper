@@ -1,0 +1,7 @@
+TODO:structure the program tree file system
+TODO:categorize file in folder by usage
+TODO:fix bug in main function of the program
+TODO:use sql for saving data and process it
+TODO:use data analysis
+TODO:create authorization like client 
+TODO:learn about headless mode and chromium 

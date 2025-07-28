@@ -4,5 +4,4 @@ def processor(link):
         if link not in f.read():
             return True
         else:
-            return False
-print(processor('https://999.md/ro/101672117'))       
+            return False       

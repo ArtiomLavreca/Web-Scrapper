@@ -37,7 +37,7 @@ def nextPageclick():
     button_next = browser.find_element(By.CLASS_NAME,'Pagination_pagination__container__buttons__wrapper__icon__next__A22Rc')
     button_next.click()
 
-NrofpageProcessedLinks = 0   
+NrofpageProcessedLinks = 0
 ProcessedLinks = 0
 Inserted_rows = 0
 Inserted_rowsFromPage = 0
@@ -83,8 +83,8 @@ def pageLinksExtractor(link):
                 pass
 
         else:
-            Inserted_rowsFromPage = 1 
-            NrofpageProcessedLinks = 1
+            Inserted_rowsFromPage = 0 
+            NrofpageProcessedLinks = 0
             return StatusLinks
 
 def linksWebsiteExtractor(limit):
@@ -92,7 +92,8 @@ def linksWebsiteExtractor(limit):
     
     for i in range(limit+1):
         current_page = browser.current_url
-        try:
+        pageLinksExtractor(current_page)
+        '''try:
             pageLinksExtractor(current_page)
             time.sleep(1)
         except NoSuchElementException:
@@ -101,10 +102,10 @@ def linksWebsiteExtractor(limit):
             print('click error')
         except:
             print(pageIndex(current_page),' / ',lastPage_index,' Processed Links: ',StatusLinks,' Unknown Error')
-        else:
-            print(pageIndex(current_page),' / ',lastPage_index,' Processed Links: ',StatusLinks,' No Errors')
-            time.sleep(1)
-            nextPageclick()
+        else:'''
+        print(pageIndex(current_page),' / ',lastPage_index,' Processed Links: ',StatusLinks,' No Errors')
+        time.sleep(1)
+        nextPageclick()
     
 
 
