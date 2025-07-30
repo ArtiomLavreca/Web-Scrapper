@@ -1,41 +1,5 @@
-from libraries import *
-from file_processor import processor
-
-
-def renderWebsite():
-    global browser,base_url
-    service = Service(executable_path='chromedriver.exe')
-    browser = webdriver.Chrome(service=service)
-    base_url = 'https://999.md/ro/list/real-estate/apartments-and-rooms?view_type=short&appl=1&ef=16%2C6%2C2307%2C2200&eo=13859%2C12885%2C12900%2C12912&o_16_1=776&o_32_8_12900=13859'
-    browser.get(base_url)
-    
-
-def pageIndex(link):
-    if 'page=' in link:
-        pagenumberindex = link[link.index('page='):].replace('page=','')
-    else:
-        pagenumberindex = 1
-    
-    return int(pagenumberindex) 
-
-def lastPageIndex():
-    global browser,time,lastPage_index
-
-    lastpage = browser.find_element(By.CLASS_NAME,'Pagination_pagination__container__buttons__wrapper__icon__last__page__84ROu')
-    lastpage.click()
-    #print(browser.current_url)
-    link_lastpage = browser.current_url
-    time.sleep(1.5)
-    browser.get('https://999.md/ro/list/real-estate/apartments-and-rooms?view_type=short&appl=1&ef=16,6,2307,2200&eo=13859,12885,12900,12912&o_16_1=776&o_32_8_12900=13859')
-    
-    lastPage_index = pageIndex(link_lastpage)
-    return lastPage_index
-
-def nextPageclick():
-    global browser
-
-    button_next = browser.find_element(By.CLASS_NAME,'Pagination_pagination__container__buttons__wrapper__icon__next__A22Rc')
-    button_next.click()
+from .website_functions import *
+from .file_worker import csv_processor as processor
 
 NrofpageProcessedLinks = 0
 ProcessedLinks = 0
@@ -60,7 +24,7 @@ def pageLinksExtractor(link):
         for ad in adlist:
             try:
                 adlink = ad.find_element(By.CSS_SELECTOR, "a.AdShort_title__link__EnVP9").get_attribute("href").split('?')[0] 
-            except NoSuchElementException:
+            except  NoSuchElementException:
                 adlink = None
             try:
                 adUpdate = ad.find_element(By.CLASS_NAME,'AdShort_date__96qym').text
@@ -107,21 +71,3 @@ def linksWebsiteExtractor(limit):
         time.sleep(1)
         nextPageclick()
     
-
-
-renderWebsite()
-time.sleep(2)
-print('website is rendered')
-lastPageIndex()
-print('number of pages : ',lastPage_index)
-time.sleep(2)
-
-
-print('start of scrapping website for links')
-linksWebsiteExtractor(lastPage_index)
-
-
-
-
-
-
