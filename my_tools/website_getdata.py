@@ -1,5 +1,8 @@
 from .website_functions import *
+
 from .file_worker import csv_processor as processor
+from .render_website import browser,base_url
+from .project_libraries import NoSuchElementException
 
 NrofpageProcessedLinks = 0
 ProcessedLinks = 0
@@ -52,7 +55,7 @@ def pageLinksExtractor(link):
             return StatusLinks
 
 def linksWebsiteExtractor(limit):
-    global browser,AlreadyExistsLink,StatusLinks
+    global browser,AlreadyExistsLink,StatusLinks,lastPage_index
     
     for i in range(limit+1):
         current_page = browser.current_url
